@@ -8,10 +8,10 @@ int main()
     NeuralNetwork network(siz);
     network.learn();
     symobls_reader reader;
-    for(auto vec : reader.get_test_data())
-    {
-        reader.print_letter(network.recognize(vec, 0));
-        break;
-    }
+    auto vec = reader.get_test_data();
+    cout << "For X - ";
+    reader.print_letter(network.recognize(vec[0]));
+    cout << "For Z - ";
+    reader.print_letter(network.recognize(vec[1]));
     return 0;
 }

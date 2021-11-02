@@ -4,8 +4,8 @@
 #include<iomanip>
 NeuralNetwork::NeuralNetwork(int num_w)
 {
-    _siz = num_w;
-    _weights = vector<vector<double>>(num_w, vector<double>(num_w, 0));
+    _siz = pow(num_w, 2);
+    _weights = vector<vector<double>>(_siz, vector<double>(_siz, 0));
 }
 
 void NeuralNetwork::learn()
@@ -18,10 +18,7 @@ void NeuralNetwork::learn()
             for(int j = 0; j < _siz; j++)
             {
                 if(i == j) continue;
-                for(int t = 0; t < _siz; t++)
-                {
-                    _weights[i][j] += learn_data[t  + i * _siz] * learn_data[t  + j * _siz];
-                }
+                _weights[i][j] += learn_data[i] * learn_data[j];
                 _weights[i][j] /= pow(_siz, 2);
             }
         }
@@ -29,57 +26,45 @@ void NeuralNetwork::learn()
 
 }
 
-vector<int> NeuralNetwork::recognize(vector<int> to_recognize, int depth)
+vector<int> NeuralNetwork::recognize(vector<int> to_recognize)
 {
-    int j = 0;
-    for(auto i : to_recognize)
+    vector<int> res(_siz, 0);
+    for(int i = 0; i < 1000; i++)
     {
-        j++;
-        std::cout << i << ' ';
-        if(j == 6)
+        for(int j = 0; j < _siz; j++)
         {
-            std::cout << std::endl;
-            j = 0;
+            double d = 0;
+            for(int i = 0; i <_siz; i++)
+            {
+                d += _weights[j][i] * to_recognize[i];
+            }
+            if(d > 0)
+            {
+                res[j] = 1;
+            }
+            else
+            {
+                res[j] = -1;
+            }
         }
+
+        for(auto vec : _reader.get_learn_data())
+        {
+            if(equals(vec, res)) 
+            {
+                return res;
+            }
+        }
+        
     }
-    std::cout << std::endl << std::endl;
-    vector<int> res(pow(_siz,2), 0);
-    for(int j = 0; j < _siz; j++)
-    {
-        double d = 0;
-        for(int i = 0; i <_siz; i++)
-        {
-            d += _weights[i][j] * to_recognize[i];
-        }
-        if(d > 0)
-        {
-            res[j] = 1;
-        }
-        else
-        {
-            res[j] = -1;
-        }
-    }
-    
+
     for(auto vec : _reader.get_learn_data())
     {
-        if(equals(vec, res) || depth > 50) 
+        if(equals(vec, res)) 
         {
-            std::cout<< "Learning finished";
             return res;
         }
     }
-    j = 0;
-    for(auto i : res)
-    {
-        j++;
-        std::cout << i << ' ';
-        if(j == 6)
-        {
-            std::cout << std::endl;
-            j = 0;
-        }
-    }
-    std::cout << std::endl << std::endl;
-    recognize(res, depth + 1);
+
+    return vector<int>();
 }

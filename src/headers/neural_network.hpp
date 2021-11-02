@@ -12,6 +12,6 @@ private:
 public:
     NeuralNetwork(int num_w);
     void learn();
-    vector<int> recognize(vector<int> to_recognize, int depth);
+    vector<int> recognize(vector<int> to_recognize);
 };
 #endif
