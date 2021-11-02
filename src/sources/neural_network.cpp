@@ -4,7 +4,7 @@
 #include<iomanip>
 NeuralNetwork::NeuralNetwork(int num_w)
 {
-    _siz = pow(num_w, 2);
+    _siz = static_cast<int>(pow(num_w, 2));
     _weights = vector<vector<double>>(_siz, vector<double>(_siz, 0));
 }
 

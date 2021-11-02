@@ -23,10 +23,10 @@ vector<int> symobls_reader::read_file(string filename)
 
 void symobls_reader::print_letter(vector<int> vec)
 {
-    if(equals(vec, _x)) std::cout << "Guess is 'X'\n";
-    else if (equals(vec, _y)) std::cout << "Guess is 'Y'\n";
-    else if (equals(vec, _u)) std::cout << "Guess is 'U'\n";
-    else if (equals(vec, _z)) std::cout << "Guess is 'Z'\n";
+    if(equals(vec, _x)) std::cout << "Guess is 'X'\n\n";
+    else if (equals(vec, _y)) std::cout << "Guess is 'Y'\n\n";
+    else if (equals(vec, _u)) std::cout << "Guess is 'U'\n\n";
+    else if (equals(vec, _z)) std::cout << "Guess is 'Z'\n\n";
     else std::cout << "No matches found";
 }
 
