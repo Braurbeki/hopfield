@@ -1,6 +1,7 @@
 #include<.\headers\neural_network.hpp>
 #include<.\headers\vector_helper.hpp>
 #include<iostream>
+#include<iomanip>
 NeuralNetwork::NeuralNetwork(int num_w)
 {
     _siz = num_w;
@@ -26,13 +27,6 @@ void NeuralNetwork::learn()
         }
     }
 
-    for(int i = 0; i < _siz; i++)
-    {
-        for(int j = 0; j < _siz; j++)
-        {
-            _weights[i][j] /= pow(_siz, 2);
-        }
-    }
 }
 
 vector<int> NeuralNetwork::recognize(vector<int> to_recognize, int depth)
@@ -50,12 +44,12 @@ vector<int> NeuralNetwork::recognize(vector<int> to_recognize, int depth)
     }
     std::cout << std::endl << std::endl;
     vector<int> res(pow(_siz,2), 0);
-    for(int j = 0; j < pow(_siz, 2); j++)
+    for(int j = 0; j < _siz; j++)
     {
         double d = 0;
-        for(int i = 0; i < pow(_siz, 2); i++)
+        for(int i = 0; i <_siz; i++)
         {
-            d += _weights[i / _siz][j / _siz] * to_recognize[i];
+            d += _weights[i][j] * to_recognize[i];
         }
         if(d > 0)
         {
