@@ -37,5 +37,5 @@ vector<vector<int>> symobls_reader::get_learn_data()
 
 vector<vector<int>> symobls_reader::get_test_data()
 {
-    return vector<vector<int>>{read_file(_test_path + "\\x"), read_file(_test_path + "\\z")};
+    return vector<vector<int>>{read_file(_test_path + "\\x"), read_file(_test_path + "\\z"), read_file(_test_path + "\\y")};
 }

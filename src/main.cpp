@@ -9,10 +9,10 @@ int main()
     NeuralNetwork network(siz);
     network.learn();
     symobls_reader reader;
-    auto vec = reader.get_test_data();
-    cout << vec[0];
-    reader.print_letter(network.recognize(vec[0]));
-    cout << vec[1];
-    reader.print_letter(network.recognize(vec[1]));
+    for(auto vec : reader.get_test_data())
+    {
+        cout << vec;
+        reader.print_letter(network.recognize(vec));
+    }
     return 0;
 }

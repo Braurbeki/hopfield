@@ -19,7 +19,7 @@ void NeuralNetwork::learn()
             {
                 if(i == j) continue;
                 _weights[i][j] += learn_data[i] * learn_data[j];
-                _weights[i][j] /= pow(_siz, 2);
+                _weights[i][j] /= _siz;
             }
         }
     }
